@@ -1,0 +1,4 @@
+[Thumbnailer Entry]
+TryExec=/usr/bin/convert
+Exec=/usr/bin/convert %i[0] -scale 512x%s png:%o
+MimeType=image/x-xcf;

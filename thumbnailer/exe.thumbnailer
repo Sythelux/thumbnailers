@@ -1,0 +1,4 @@
+[Thumbnailer Entry]
+TryExec=wrestool
+Exec=sh -c "wrestool -x --type=14 \"%i\" 2>/dev/null | convert -scale 512x%s ico:- png:%o"
+MimeType=application/x-ms-dos-executable;

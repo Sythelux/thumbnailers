@@ -1,0 +1,42 @@
+#!/bin/bash
+
+sInFile="$1"
+nThumbSize="$2"
+sOutFile="$3"
+
+# Get the dimensions of the input image
+sInfo="$(opj_dump -i "$sInFile")"
+sSize="$(echo "$sInfo" | grep x1 | sed -r 's|.*x1=(.*), y1=(.*)|\1\t\2|')"
+nWidth="$(echo "$sSize" | cut --fields=1)"
+nHeight="$(echo "$sSize" | cut --fields=2)"
+
+# Get the large dimension of the input image
+if((nWidth>nHeight)); then
+    nLargeSize="$nWidth"
+else
+    nLargeSize="$nHeight"
+fi
+
+# Generate output thumbnail;
+# Images larger than the default thumbnail size (256x256 or
+# 128x128 pixels) are scaled down so their large dimension
+# is at most 256 or 128 pixels. This significantly reduces
+# thumbnail generation time.
+if((nLargeSize<=nThumbSize)); then
+    /usr/bin/opj_decompress -i "$sInFile" -o "$sOutFile".png
+else
+    nResolutions="$(echo "$sInfo" | grep numresolutions | cut --delimiter='=' --fields=2 | sort --general-numeric-sort | sed 1q)"
+    nReduce="$(echo "f=l($nLargeSize/$nThumbSize)/l(2);scale=0;f/1" | bc -l)"
+    if((nReduce<nResolutions)); then
+        nReduceFactor="$nReduce"
+    else
+        nReduceFactor="$((nResolutions-1))"
+    fi
+    /usr/bin/opj_decompress -i "$sInFile" -r "$nReduceFactor" -o "$sOutFile".png
+fi
+if [[ -e /usr/bin/gdk-pixbuf-thumbnailer ]]; then
+    /usr/bin/gdk-pixbuf-thumbnailer -s "$nThumbSize" "$sOutFile".png "$sOutFile"
+    rm "$sOutFile".png
+else
+    mv "$sOutFile".png "$sOutFile"
+fi

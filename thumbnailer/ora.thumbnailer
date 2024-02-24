@@ -1,0 +1,4 @@
+[Thumbnailer Entry]
+TryExec=unzip
+Exec=sh -c "unzip -p %i Thumbnails/thumbnail.png > %o"
+MimeType=image/openraster;

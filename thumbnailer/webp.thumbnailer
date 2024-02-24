@@ -1,0 +1,4 @@
+[Thumbnailer Entry]
+TryExec=convert
+Exec=convert webp:%i -scale 512x%s png:%o
+MimeType=image/webp;
