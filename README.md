@@ -2,15 +2,16 @@
 
 This repo is a collection of thumbnailers and scripts to get specific thumbnails to work.
 
-the folder "thumbnailers" has to be put as /usr/share/thumbnailers
-the the content from bin has to be put into a bin path lice /usr/local/bin/
+# Install
 
-some thumbnailers might already exists on some package
+there is a makefile so you can use `sudo make install` it will copy the thumbnailers and the bin scripts into the corresponding folders you can copy single scripts manually
+
+some thumbnailers might already exists on some package. the make install command will not overwrite them.
 
 # TODO
 
-installer scripts would be cool
-
+- Folder script is not very performant
+- PureRef scripts opens up a window of the application -> needs a headless mode
 
 Example on how the Folder thumbnailer looks:
 

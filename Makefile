@@ -1,3 +1,3 @@
 install:
-	cp -r thumbnailers/* /usr/share/thumbnailers/
-	cp -r bin/* /usr/bin/
+	cp -n thumbnailers/* /usr/share/thumbnailers/
+	cp -n bin/* /usr/bin/
