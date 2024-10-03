@@ -1,0 +1,9 @@
+[Thumbnailer Entry]
+Version=1.0
+Encoding=UTF-8
+Type=X-Thumbnailer
+Name=PureRef Thumbnailer
+MimeType=application/pureref;
+Exec=/usr/bin/pureref-thumbnailer %i %s %o
+
+# needs to be put into /usr/share/thumbnailers you also might have to remove this line

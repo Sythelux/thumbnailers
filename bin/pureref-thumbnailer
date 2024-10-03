@@ -1,0 +1,21 @@
+#!/bin/bash
+
+sInFile="$1"
+nThumbSize="$2"
+sOutFile="$3"
+
+# echo $1 $2 $3
+
+IFS=$'\n'
+
+cat <<EOF > /tmp/pureref-thumbnailer.ini
+[General_Settings]
+Always_On_Top=false
+Auto_Save=false
+FirstTimeSetup=true
+Hide_Unsaved_Warning=true
+EOF
+
+# TODO: it will currently open up Pureref as an actual window, we'd need a headless mode
+/usr/bin/PureRef --settings /tmp/pureref-thumbnailer.ini -c "load;${sInFile}" -c "exportScene;${sOutFile}.png;$nThumbSize;$nThumbSize" -c 'exit'
+mv "${sOutFile}.png" "${sOutFile}"
